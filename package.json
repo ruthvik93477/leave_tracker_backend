@@ -1,0 +1,24 @@
+{
+  "name": "leave-tracker",
+  "version": "1.0.0",
+  "description": "This helps to track leaves of employees",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "server": "nodemon app.js,result.ejs,upload.html,delete.html.search.html"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "dotenv": "^16.3.1",
+    "ejs": "^3.1.9",
+    "express": "^4.18.2",
+    "express-session": "^1.17.3",
+    "fs": "^0.0.1-security",
+    "git": "^0.1.5",
+    "mongoose": "^8.0.2",
+    "nodemon": "^3.0.2"
+  }
+}

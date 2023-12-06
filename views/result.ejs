@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+  <title>Search Result</title>
+  <link rel="icon" href="logo.jpeg" style="border-radius: 25px;">
+  <style>
+    body{
+        background-image: linear-gradient(to right, #77876a,rgb(169, 179, 150),rgb(184, 220, 73));
+        }
+  </style>
+</head>
+<body>
+  <% if (result) { %>
+    <h1 class="text-center mb-3 mt-2"><b><i>LEAVE STATUS</i></b></h1>
+    <table class="border-dark table-bordered table">
+      <tr>
+        <td><b><i>Company Name:</i></b></td>
+        <td><%= result.cn%></td>
+      </tr>
+      <tr>
+        <td><b><i>Client Name:</i></b></td>
+        <td><%= result.clientName%></td>
+      </tr>
+      <tr>
+        <td><b><i>Name:</i></b></td>
+        <td><%= result.name%></td>
+      </tr>
+      <tr>
+        <td class="bg-warning"><b><i>Reamining Annual Leaves</i></b></td>
+        <td class="bg-warning"><%= result.aLeaves%></td>
+      </tr>
+      <tr>
+        <td class="bg-warning"><b><i>Reamining Medical Leaves</i></b></td>
+        <td class="bg-warning"><%= result.mLeaves%></td>
+      </tr>
+      <tr>
+        <td><b><i>Carry Forward leaves</i></b></td>
+        <td><%= result.cf%></td>
+      </tr>
+    </table>
+    <h2 class="text-center mb-1 mt-2"><b><i>Monthly Leave Details</i></b></h2>
+    <h3 class="mb-3 mt-2 ms-2"><b><i>Annual Leaves</i></b></h3>
+    <table class="border-secondary table-bordered table">
+      <tr>
+        <td><b><i>January: </i></b><%= result.jan %></td>
+        <td><b><i>February: </i></b><%= result.feb %></td>
+        <td><b><i>March: </i></b><%= result.mar %></td>
+        <td><b><i>April: </i></b><%= result.apr %></td>
+        <td><b><i>May: </i></b><%= result.may %></td>
+        <td><b><i>June: </i></b><%= result.jun %></td>
+      </tr>
+      <tr>
+        <td><b><i>July: </i></b><%= result.jul %></td>
+        <td><b><i>August: </i></b><%= result.aug %></td>
+        <td><b><i>September: </i></b><%= result.sep %></td>
+        <td><b><i>October: </i></b><%= result.oct %></td>
+        <td><b><i>November: </i></b><%= result.nov %></td>
+        <td><b><i>December: </i></b><%= result.dec %></td>
+      </tr>
+    </table>
+    <h3 class="mb-3 mt-2 ms-2"><b><i>Medical Leaves</i></b></h3>
+    <table class="border-secondary table-bordered table">
+      <tr>
+        <td><b><i>January: </i></b><%= result.jan_ml %></td>
+        <td><b><i>February: </i></b><%= result.feb_ml %></td>
+        <td><b><i>March: </i></b><%= result.mar_ml %></td>
+        <td><b><i>April: </i></b><%= result.apr_ml %></td>
+        <td><b><i>May: </i></b><%= result.may_ml %></td>
+        <td><b><i>June: </i></b><%= result.jun_ml %></td>
+      </tr>
+      <tr>
+        <td><b><i>July: </i></b><%= result.jul_ml %></td>
+        <td><b><i>August: </i></b><%= result.aug_ml %></td>
+        <td><b><i>September: </i></b><%= result.sep_ml %></td>
+        <td><b><i>October: </i></b><%= result.oct_ml %></td>
+        <td><b><i>November: </i></b><%= result.nov_ml %></td>
+        <td><b><i>December: </i></b><%= result.dec_ml %></td>
+      </tr>
+    </table>
+    <div class="text-center">
+      <a href="/upload"><button class="btn btn-primary searchButton me-4"><b>Go To Upload Page</b></button></a>
+      <a href="/search"><button class="btn btn-dark searchButton me-4"><b>Go To Search Page</b></button></a>
+      <a href="/delete"><button class="btn btn-danger searchButton"><b>Go To Delete Page</b></button></a>
+    </div>
+  <% } else if (error) { %>
+    <h1 class="text-danger text-center"><b><i>An error occured</i></b></h1>
+    <h2 class="text-warning text-center"><b><i>Please check the Spelling of the name given</i></b></h2>
+  <% } %>
+</body>
+</html>
