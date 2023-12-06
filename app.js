@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const fs = require('fs');
 const ejs = require('ejs');
 //const path = require('path');
-//const cors = require('cors');
+const cors = require('cors');
 const bodyParser = require('body-parser');
 const session = require('express-session');
 require('dotenv').config();
@@ -74,7 +74,7 @@ const InputData = mongoose.model('InputData', inputSchema);
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public'));
-//app.use(cors());
+app.use(cors());
 
 app.get('/', (req, res) => {
   res.sendFile(__dirname + '/public/home.html');
