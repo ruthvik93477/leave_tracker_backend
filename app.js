@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const fs = require('fs');
 const ejs = require('ejs');
 //const path = require('path');
-const cors = require('cors');
+//const cors = require('cors');
 const bodyParser = require('body-parser');
 const session = require('express-session');
 require('dotenv').config();
@@ -74,7 +74,7 @@ const InputData = mongoose.model('InputData', inputSchema);
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public'));
-app.use(cors());
+//app.use(cors());
 
 app.get('/', (req, res) => {
   res.sendFile(__dirname + '/public/home.html');
@@ -126,7 +126,7 @@ app.post('/upload', async (req, res) => {
     await inputData.save();
     /*let a = fs.readFileSync("public/submit.html")
     res.send(a.toString())*/
-    res.render("<center><h1><i>Submitted Successfully</i></h1></center>");
+    res.send("<center><h1><i>Submitted Successfully</i></h1></center>");
   } catch (err) {
     console.error(err);
     res.status(500).send('Internal Server Error');
@@ -166,11 +166,11 @@ app.post('/delete', async (req, res) => {
     if (result) {
       /*let a = fs.readFileSync("public/f.html")
       res.send(a.toString())*/
-      res.render("<center><h1><i>Deleted Successfully</i></h1></center>")
+      res.send("<center><h1><i>Deleted Successfully</i></h1></center>")
     } else {
       /*let b = fs.readFileSync("public/n.html")
       res.send(b.toString())*/
-      res.render("<center><h1><i>No Details found</i></h1></center>");
+      res.send("<center><h1><i>No Details found</i></h1></center>");
     }
   } catch (error) {
     console.error(error);
