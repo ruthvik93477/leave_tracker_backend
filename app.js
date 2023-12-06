@@ -124,8 +124,9 @@ app.post('/upload', async (req, res) => {
       mLeaves: parseInt(ml)-parseInt(mLeaves),
     });
     await inputData.save();
-    let a = fs.readFileSync("public/submit.html")
-    res.send(a.toString())
+    /*let a = fs.readFileSync("public/submit.html")
+    res.send(a.toString())*/
+    res.render("<center><h1><i>Submitted Successfully</i></h1></center>");
   } catch (err) {
     console.error(err);
     res.status(500).send('Internal Server Error');
@@ -163,11 +164,13 @@ app.post('/delete', async (req, res) => {
   try {
     const result = await InputData.findOneAndDelete({ name: nameToDelete });
     if (result) {
-      let a = fs.readFileSync("public/f.html")
-      res.send(a.toString())
+      /*let a = fs.readFileSync("public/f.html")
+      res.send(a.toString())*/
+      res.render("<center><h1><i>Deleted Successfully</i></h1></center>")
     } else {
-      let b = fs.readFileSync("public/n.html")
-      res.send(b.toString())
+      /*let b = fs.readFileSync("public/n.html")
+      res.send(b.toString())*/
+      res.render("<center><h1><i>No Details found</i></h1></center>");
     }
   } catch (error) {
     console.error(error);
