@@ -76,8 +76,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public'));
 app.use(cors());
 
-app.get('/login',authenticate, (req, res) => {
-  res.sendFile(__dirname + '/public/home.html');
+app.get('/landing',authenticate, (req, res) => {
+  res.sendFile(__dirname + '/public/landing.html');
 });
 
 // Upload.html route
@@ -179,9 +179,9 @@ app.post('/delete',authenticate, async (req, res) => {
 });
 
 app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/public/login1.html');
+  res.sendFile(__dirname + '/public/home.html');
 });
-app.get('/login1', (req, res) => {
+app.get('/login', (req, res) => {
   res.render('login');
 });
 
@@ -190,13 +190,13 @@ app.get('/contact',authenticate,(req,res)=>{
   res.sendFile(__dirname + '/public/contact.html');
 })
 
-app.post('/login', (req, res) => {
+app.post('/landing', (req, res) => {
   const { username, password } = req.body;
 
   if (username === userName && password === pass) {
     req.session.username = username;
     req.session.password = password;
-    res.redirect('/login');
+    res.redirect('/landing');
   } else {
     res.status(401).send('Invalid credentials. Please try again.');
   }
