@@ -13,7 +13,7 @@ const port = process.env.PORT;
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public'));
-/*app.use(session({
+app.use(session({
   secret: '13', 
   resave: false,
   saveUninitialized: true,
@@ -32,7 +32,7 @@ const authenticate = (req, res, next) => {
     //alert('You entered wrong password, it is notified to the developer');
     //process.exit(2);
   }
-};*/
+};
 const conn = process.env.MONGO_URL;
 mongoose.connect(conn);
 
@@ -76,16 +76,16 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public'));
 app.use(cors());
 
-app.get('/', (req, res) => {
+app.get('/login',authenticate, (req, res) => {
   res.sendFile(__dirname + '/public/home.html');
 });
 
 // Upload.html route
-app.get('/upload', (req, res) => {
+app.get('/upload',authenticate, (req, res) => {
   res.sendFile(__dirname + '/public/upload.html');
 });
 
-app.post('/upload', async (req, res) => {
+app.post('/upload',authenticate, async (req, res) => {
   let {cn,clientName,name,cf,ml,jan,feb,mar,apr,may,jun,jul,aug,sep,oct,nov,dec,jan_ml,feb_ml,mar_ml,apr_ml,may_ml,jun_ml,jul_ml,aug_ml,sep_ml,oct_ml,nov_ml,dec_ml} = req.body;
   const aLeaves = parseInt(jan)+parseInt(feb)+parseInt(mar)+parseInt(apr)+parseInt(may)+parseInt(jun)+parseInt(jul)+parseInt(aug)+parseInt(sep)+parseInt(oct)+parseInt(nov)+parseInt(dec);
   const mLeaves = parseInt(jan_ml)+parseInt(feb_ml)+parseInt(mar_ml)+parseInt(apr_ml)+parseInt(may_ml)+parseInt(jun_ml)+parseInt(jul_ml)+parseInt(aug_ml)+parseInt(sep_ml)+parseInt(oct_ml)+parseInt(nov_ml)+parseInt(dec_ml);
@@ -124,9 +124,9 @@ app.post('/upload', async (req, res) => {
       mLeaves: parseInt(ml)-parseInt(mLeaves),
     });
     await inputData.save();
-    /*let a = fs.readFileSync("public/submit.html")
-    res.send(a.toString())*/
-    res.send("<center><h1><i>Submitted Successfully</i></h1></center>");
+    let a = fs.readFileSync("public/submit.html")
+    res.send(a.toString())
+    //res.send("<center><h1><i>Submitted Successfully</i></h1></center>");
   } catch (err) {
     console.error(err);
     res.status(500).send('Internal Server Error');
@@ -134,11 +134,11 @@ app.post('/upload', async (req, res) => {
 });
 
 // Search
-app.get('/search', (req, res) => {
+app.get('/search',authenticate, (req, res) => {
   res.sendFile(__dirname + '/public/search.html');
 });
 
-app.post('/search', (req, res) => {
+app.post('/search',authenticate, (req, res) => {
   const searchName = req.body.name;
 
   InputData.findOne({ name: searchName }).exec()
@@ -155,22 +155,22 @@ app.post('/search', (req, res) => {
 }); 
 
 // Delete
-app.get('/delete', (req, res) => {
+app.get('/delete',authenticate, (req, res) => {
   res.sendFile(__dirname + '/public/delete.html');
 });
 
-app.post('/delete', async (req, res) => {
+app.post('/delete',authenticate, async (req, res) => {
   const nameToDelete = req.body.name;
   try {
     const result = await InputData.findOneAndDelete({ name: nameToDelete });
     if (result) {
-      /*let a = fs.readFileSync("public/f.html")
-      res.send(a.toString())*/
-      res.send("<center><h1><i>Deleted Successfully</i></h1></center>")
+      let a = fs.readFileSync("public/f.html");
+      res.send(a.toString());
+      //res.send("<center><h1><i>Deleted Successfully</i></h1></center>")
     } else {
-      /*let b = fs.readFileSync("public/n.html")
-      res.send(b.toString())*/
-      res.send("<center><h1><i>No Details found</i></h1></center>");
+      let b = fs.readFileSync("public/n.html")
+      res.send(b.toString())
+      //res.send("<center><h1><i>No Details found</i></h1></center>");
     }
   } catch (error) {
     console.error(error);
@@ -178,16 +178,19 @@ app.post('/delete', async (req, res) => {
   }
 });
 
-/*app.get('/', (req, res) => {
+app.get('/', (req, res) => {
+  res.sendFile(__dirname + '/public/login1.html');
+});
+app.get('/login1', (req, res) => {
   res.render('login');
-});*/
+});
 
 //Contact Us
-app.get('/contact',(req,res)=>{
+app.get('/contact',authenticate,(req,res)=>{
   res.sendFile(__dirname + '/public/contact.html');
 })
 
-/*app.post('/login', (req, res) => {
+app.post('/login', (req, res) => {
   const { username, password } = req.body;
 
   if (username === userName && password === pass) {
@@ -197,7 +200,7 @@ app.get('/contact',(req,res)=>{
   } else {
     res.status(401).send('Invalid credentials. Please try again.');
   }
-});*/
+});
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
