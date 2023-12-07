@@ -181,7 +181,7 @@ app.post('/delete',authenticate, async (req, res) => {
 app.get('/', (req, res) => {
   res.sendFile(__dirname + '/public/home.html');
 });
-app.get('/login', (req, res) => {
+app.post('/login', (req, res) => {
   res.render('login');
 });
 
