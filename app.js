@@ -190,13 +190,13 @@ app.get('/contact',authenticate,(req,res)=>{
   res.sendFile(__dirname + '/public/contact.html');
 })
 
-app.post('/landing', (req, res) => {
+app.post('http://aitek-leave-tracker1.netlify.app/landing', (req, res) => {
   const { username, password } = req.body;
 
   if (username === userName && password === pass) {
     req.session.username = username;
     req.session.password = password;
-    res.redirect('/landing');
+    res.redirect('http://aitek-leave-tracker1.netlify.app/landing');
   } else {
     res.status(401).send('Invalid credentials. Please try again.');
   }
