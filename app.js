@@ -76,7 +76,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public'));
 app.use(cors());
 
-app.get('/landing',authenticate, (req, res) => {
+app.get('http://aitek-leave-tracker1.netlify.app/landing',authenticate, (req, res) => {
   res.sendFile(__dirname + '/public/landing.html');
 });
 
@@ -190,7 +190,7 @@ app.get('/contact',authenticate,(req,res)=>{
   res.sendFile(__dirname + '/public/contact.html');
 })
 
-app.post('/landing', (req, res) => {
+app.post('http://aitek-leave-tracker1.netlify.app/landing', (req, res) => {
   const { username, password } = req.body;
 
   if (username === userName && password === pass) {
